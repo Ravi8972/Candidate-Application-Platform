@@ -1,5 +1,4 @@
 import { Box, TextField } from "@mui/material";
-import MenuItem from '@mui/material/MenuItem';
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import JobList from "./JobList";
@@ -9,11 +8,9 @@ const Filters = () => {
   const [filterRole, setFilterRole] = useState("");
   const [filterLocation, setFilterLocation] = useState("");
   const [filterExperience, setFilterExperience] = useState("");
-  const [filterLocationType,setFilterLocationType]=useState("")
+  const [filterCompanyName,setFilterCompanyName]=useState("")
 
-  // console.log(jobs);
-  const locationType = ["Remote","On-Site"]
-
+ 
   const handleRoleChange = (e) => {
     setFilterRole(e.target.value);
   };
@@ -24,8 +21,8 @@ const Filters = () => {
   const handleExperienceChange = (e) => {
     setFilterExperience(e.target.value);
   };
-  const handlefilterLocationType = (e) => {
-    setFilterLocationType(e.target.value);
+  const handlefilterComapanyName = (e) => {
+    setFilterCompanyName(e.target.value);
   };
   return (
     <div>
@@ -64,27 +61,21 @@ const Filters = () => {
           onChange={handleExperienceChange}
         />
 
-         <TextField
-          id="outlined-select-Location"
-          select
-          label="Select"
-          defaultValue=""
-          helperText="Remote/On-site"
-          value={filterLocationType}
-          onChange={handlefilterLocationType}
-        >
-          {locationType.map((option) => (
-            <MenuItem key={option} value={option}>
-              {option}
-            </MenuItem>
-          ))}
-        </TextField>
+        <TextField
+          type="text"
+          name="companyName"
+          label="Search Company Name"
+          variant="outlined"
+          value={filterCompanyName}
+          onChange={handlefilterComapanyName }
+        />
       </Box>
       <JobList
         jobs={jobs}
         filterRole={filterRole}
         filterLocation={filterLocation}
         filterExperience={filterExperience}
+        filterCompanyName = {filterCompanyName}
       />
     </div>
   );

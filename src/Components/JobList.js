@@ -6,7 +6,7 @@ import { fetchJobs } from '../redux/features/jobSlice';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
+const JobList = ({ jobs, filterRole, filterLocation, filterExperience, filterCompanyName }) => {
   
     const scrollRef = useRef(null);
     const dispatch = useDispatch();
@@ -32,14 +32,15 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
     return (
       job.jobRole.toLowerCase().includes(filterRole.toLowerCase()) &&
       job.location.toLowerCase().includes(filterLocation.toLowerCase()) &&
-      job.minExp?.toString().includes(filterExperience)
+      job.minExp?.toString().includes(filterExperience) &&
+      job.companyName.toLowerCase().includes(filterCompanyName.toLowerCase())
     );
   };
 
   return (
     <div  ref={scrollRef} >
         {isLoading && jobs.length === 0 ? ( // Display loading message when fetching initial jobs.
-                <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                <Box display="flex" justifyContent="center" alignItems="center" height="100vh" color = "#7f7f7f" >
                     <h4>Loading...</h4>
                 </Box>
             ) : (
@@ -47,7 +48,7 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
           dataLength={jobs.length} // Number of items currently loaded.
           next={fetchMoreData} // Function to load more items.
           hasMore={hasMore} // Boolean to indicate if there are more items to load.
-          loader={<Box textAlign="center"><h4>Loading more...</h4></Box>} // Loader to show while loading more items.
+          loader={<Box textAlign="center" color = "#7f7f7f"><h4>Loading more...</h4></Box>} // Loader to show while loading more items.
           scrollableTarget={scrollRef} // Reference to the scrollable container.
           endMessage={ // Message to display when all items have been loaded.
               <p style={{ textAlign: 'center' }}>
