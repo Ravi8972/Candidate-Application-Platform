@@ -6,7 +6,7 @@ const initialState = {
     errors: null,
 }
 
-const fetchJobs = createAsyncThunk("fetchJob", async (offset,limit) => {
+export const fetchJobs = createAsyncThunk("fetchJob", async (offset,limit) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
