@@ -6,13 +6,13 @@ const initialState = {
     errors: null,
 }
 
-export const fetchJobs = createAsyncThunk("fetchJob", async (offset,limit) => {
+export const fetchJobs = createAsyncThunk("fetchJob", async ({offset},{getState}) => {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     const body = JSON.stringify({
         "limit": 10,
-        "offset": offset
+        "offset": offset,
        });
        
        const requestOptions = {
@@ -34,7 +34,9 @@ const jobsSlice = createSlice(
         reducers:{},  // Reducers are used to modify the state in response to actions. They specify how the state should change based on actions.
         extraReducers: (builder) => {
             builder.addCase(fetchJobs.fulfilled, (state, actions) => {
-              return { ...state, loading: false, jobs: actions.payload };
+                state.jobs = [...state.jobs, ...actions.payload];
+                state.loading = false;
+            //   return { ...state, loading: false };
             });
             builder.addCase(fetchJobs.pending, (state, actions) => {
               return { ...state, loading: true };

@@ -1,8 +1,32 @@
 import JobCard from "./JobCard";
-import { Grid } from "@mui/material";
+import { Container, Grid, Box } from "@mui/material";
+import React, { useEffect, useState,useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobs } from '../redux/features/jobSlice';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import "./JobList.css";
 const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
-  const filterJobs = (job) => {
+  
+    const scrollRef = useRef(null);
+    const dispatch = useDispatch();
+    const isLoading = useSelector((state) => state.jobs.loading);
+    const [hasMore, setHasMore] = useState(true);
+
+    useEffect(() => {
+      dispatch(fetchJobs({offset :0}));
+      return;
+    }, [dispatch]);
+
+  
+
+    const fetchMoreData = () => {
+        if (hasMore && !isLoading) {
+            dispatch(fetchJobs({ offset: jobs.length })); // Fetch additional jobs.
+        }
+        jobs.length > 0 ? setHasMore(true) : setHasMore(false);
+      };
+
+    const filterJobs = (job) => {
     // console.log(job);
     return (
       job.jobRole.toLowerCase().includes(filterRole.toLowerCase()) &&
@@ -12,7 +36,24 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
   };
 
   return (
-    <div>
+    <div  ref={scrollRef} >
+        {isLoading && jobs.length === 0 ? ( // Display loading message when fetching initial jobs.
+                <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+                    <h4>Loading...</h4>
+                </Box>
+            ) : (
+      <InfiniteScroll  
+          dataLength={jobs.length} // Number of items currently loaded.
+          next={fetchMoreData} // Function to load more items.
+          hasMore={hasMore} // Boolean to indicate if there are more items to load.
+          loader={<Box textAlign="center"><h4>Loading more...</h4></Box>} // Loader to show while loading more items.
+          scrollableTarget={scrollRef} // Reference to the scrollable container.
+          endMessage={ // Message to display when all items have been loaded.
+              <p style={{ textAlign: 'center' }}>
+                  <b>You have seen it all</b>
+              </p>
+          }
+      >
       <Grid container spacing={8}>
         {jobs.filter(filterJobs).map((job, index) => (
           <Grid
@@ -26,6 +67,8 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
           </Grid>
         ))}
       </Grid>
+      </InfiniteScroll>
+      )}
     </div>
   );
 };

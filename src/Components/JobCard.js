@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
 import {Card, CardContent,Button,Typography,Collapse} from  '@mui/material';
 import {styled} from "@mui/material/styles"
+import ApplyButton from './common/ApplyButton';
+import ReferralButton from './common/ReferralButton';
+
 
 const StyledCard = styled(Card)`
   display: flex;
@@ -33,21 +36,11 @@ const Location = styled(Typography)`
   text-transform: capitalize;
 `;
 
-const ApplyButton = styled(Button)`
-  cursor: pointer;
-  width: 100%;
-  background-color: rgb(85, 239, 196);
-  border-radius: 0.5rem;
-  border-color: rgb(85, 239, 196);
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  padding: 8px 18px;
-`;
+
 
 const JobCard = ({ job }) => {
   const [showMore, setShowMore] = useState(false);
-  const maxDescriptionLength = 100;
-  //   console.log(job);
+  const maxDescriptionLength = 120;
   return (
     <StyledCard>
       <CardContent>
@@ -79,9 +72,8 @@ const JobCard = ({ job }) => {
         <Typography variant="body2" style={{ marginBottom: "7px" }}>
           Experience: {job.minExp ? job.minExp : "NA"} years
         </Typography>
-        <ApplyButton variant="contained" color="primary" href={job.jdLink}>
-          ⚡ Easy Apply
-        </ApplyButton>
+        <ApplyButton href={job.jdLink}/>
+        <ReferralButton/>
       </CardContent>
     </StyledCard>
   );
