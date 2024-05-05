@@ -4,7 +4,8 @@ import React, { useEffect, useState,useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobs } from '../redux/features/jobSlice';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import "./JobList.css";
+
+
 const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
   
     const scrollRef = useRef(null);
@@ -54,7 +55,7 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience }) => {
               </p>
           }
       >
-      <Grid container spacing={8}>
+      <Grid container spacing={12}>
         {jobs.filter(filterJobs).map((job, index) => (
           <Grid
             item
