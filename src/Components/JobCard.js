@@ -17,6 +17,8 @@ const JobCard = ({ job }) => {
   const JobPosted = job.maxExp % 30;
   const [showMore, setShowMore] = useState(false);
   const maxDescriptionLength = 120;
+ 
+
   return (
     <Card
       sx={{
@@ -103,8 +105,8 @@ const JobCard = ({ job }) => {
         >
           Experience: {job.minExp ? job.minExp : "NA"} years
         </Typography>
-        <ApplyButton href={job.jdLink} />
-        <ReferralButton />
+        <ApplyButton />
+        <ReferralButton/>
       </CardContent>
     </Card>
   );

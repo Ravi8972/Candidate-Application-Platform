@@ -2,10 +2,7 @@ import React from "react";
 import { Button, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-/**
- * ReferralButton renders a button designed for initiating referral requests.
- * It emphasizes the referral action through the use of dual AccountCircle icons.
- */
+
 const ReferralButton = () => {
     return (
         // Button container with centered alignment and top margin for spacing

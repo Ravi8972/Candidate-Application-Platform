@@ -1,12 +1,14 @@
 import React from "react";
 import { Button, Typography } from '@mui/material';
-import BoltIcon from '@mui/icons-material/Bolt';
+import { useNavigate } from "react-router-dom";
 
-/**
- * ApplyButton provides a visually appealing and easy-to-use application button for job applications.
- * It features a prominent Bolt icon to signify a quick or easy application process.
- */
 const ApplyButton = () => {
+    // const navigate = useNavigate()
+    // const handleApply = (event) => {
+    //     event.preventDefault();
+    //     navigate('/ApplyPage');
+    //   }
+
     return (
         // Centered button container with bottom margin for spacing
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px'}}>

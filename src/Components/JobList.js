@@ -6,7 +6,7 @@ import { fetchJobs } from '../redux/features/jobSlice';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 
-const JobList = ({ jobs, filterRole, filterLocation, filterExperience, filterCompanyName }) => {
+const JobList = ({ jobs, filterRole, filterLocation, filterMinBasesalary,filterExperience, filterCompanyName }) => {
   
     const scrollRef = useRef(null);
     const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const JobList = ({ jobs, filterRole, filterLocation, filterExperience, filterCom
       };
 
     const filterJobs = (job) => {
-    // console.log(job);
     return (
       job.jobRole.toLowerCase().includes(filterRole.toLowerCase()) &&
       job.location.toLowerCase().includes(filterLocation.toLowerCase()) &&
+      (job.minJdSalary?.toString() || '').includes(filterMinBasesalary) &&
       job.minExp?.toString().includes(filterExperience) &&
       job.companyName.toLowerCase().includes(filterCompanyName.toLowerCase())
     );

@@ -7,6 +7,7 @@ const Filters = () => {
   const jobs = useSelector((state) => state.jobs.jobs);
   const [filterRole, setFilterRole] = useState("");
   const [filterLocation, setFilterLocation] = useState("");
+  const [filterMinBasesalary, setFilterMinBasesalary] = useState("");
   const [filterExperience, setFilterExperience] = useState("");
   const [filterCompanyName,setFilterCompanyName]=useState("")
 
@@ -17,6 +18,9 @@ const Filters = () => {
 
   const handleLocationChange = (e) => {
     setFilterLocation(e.target.value);
+  };
+  const handleMinBaseSalary = (e) => {
+    setFilterMinBasesalary(e.target.value);
   };
   const handleExperienceChange = (e) => {
     setFilterExperience(e.target.value);
@@ -33,7 +37,7 @@ const Filters = () => {
           justifyContent: "center",
           marginTop: "60px",
           paddingBottom: "40px",
-          gap: "50px",
+          gap: "30px",
         }}
       >
         <TextField
@@ -51,6 +55,14 @@ const Filters = () => {
           variant="outlined"
           value={filterLocation}
           onChange={handleLocationChange}
+        />
+          <TextField
+          type="number"
+          name="Base Salary"
+          label="Min Base Pay (USD)"
+          variant="outlined"
+          value={filterMinBasesalary}
+          onChange={handleMinBaseSalary}
         />
         <TextField
           type="number"
@@ -74,6 +86,7 @@ const Filters = () => {
         jobs={jobs}
         filterRole={filterRole}
         filterLocation={filterLocation}
+        filterMinBasesalary = {filterMinBasesalary}
         filterExperience={filterExperience}
         filterCompanyName = {filterCompanyName}
       />
